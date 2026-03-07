@@ -3,16 +3,7 @@
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import {
-  Palette,
-  FileText,
-  Search,
-  Mail,
-  BarChart2,
   Shield,
-  Zap,
-  Smartphone,
-  Globe,
-  Lock,
   Check,
   ChevronDown,
 } from 'lucide-react'
@@ -46,21 +37,6 @@ const WarpBackground = dynamic(
   { ssr: false }
 )
 
-/* ----------------------------------------------------------------
-   Icon map for features
-   ---------------------------------------------------------------- */
-const ICON_MAP: Record<string, React.ElementType> = {
-  Palette,
-  FileText,
-  Search,
-  Mail,
-  BarChart2,
-  Shield,
-  Zap,
-  Smartphone,
-  Globe,
-  Lock,
-}
 
 /* ----------------------------------------------------------------
    Stats section
@@ -90,54 +66,6 @@ function StatsSection() {
   )
 }
 
-/* ----------------------------------------------------------------
-   Features section
-   ---------------------------------------------------------------- */
-function FeaturesSection() {
-  const { t } = useLanguage()
-  return (
-    <section id="features" className="py-24 px-6 md:px-12 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-heading font-black text-4xl md:text-5xl text-foreground mb-4 glow-text">
-            {t.features.title}
-          </h2>
-          <p className="text-foreground-secondary text-lg max-w-xl mx-auto">
-            {t.features.subtitle}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {t.features.items.map((feature, i) => {
-            const Icon = ICON_MAP[feature.icon] ?? Globe
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.4 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="flex flex-col items-center text-center p-5 rounded-xl border border-card-border bg-card gap-3 card-hover"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Icon size={18} className="text-primary" />
-                </div>
-                <span className="text-sm text-foreground leading-tight">{feature.label}</span>
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ----------------------------------------------------------------
    Pricing section (inside WarpBackground)
@@ -346,9 +274,6 @@ export default function Home() {
 
       {/* 2. Quick stats bar */}
       <StatsSection />
-
-      {/* 3. What's included */}
-      <FeaturesSection />
 
       {/* 4. How It Works — RadialOrbitalTimeline */}
       <RadialOrbitalTimeline />
