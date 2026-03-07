@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx skills:*)",
+      "Bash(npm install:*)",
+      "Bash(npm show:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(npx next:*)",
+      "Read(//tmp/**)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(curl:*)",
+      "Bash(npm ls:*)"
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THEME: LIGHT (default)
+   Font: Inter (sans-serif) — clean, professional
+   ============================================================ */
+[data-theme="light"] {
+  --bg-primary: 255 255 255;
+  --bg-secondary: 248 250 252;
+  --bg-tertiary: 241 245 249;
+  --text-primary: 15 23 42;
+  --text-secondary: 71 85 105;
+  --text-muted: 148 163 184;
+  --accent: 59 130 246;
+  --accent-hover: 37 99 235;
+  --border: 226 232 240;
+  --card-bg: 255 255 255;
+  --card-border: 226 232 240;
+  --glow: rgba(59, 130, 246, 0.25);
+  --gradient-from: #60a5fa;
+  --gradient-to: #1d4ed8;
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui);
+  --font-heading: var(--font-inter, ui-sans-serif, system-ui);
+  --font-mono: var(--font-jetbrains, ui-monospace);
+}
+
+/* ============================================================
+   THEME: DARK
+   Font: Inter (sans-serif) — same family, dark palette
+   ============================================================ */
+[data-theme="dark"] {
+  --bg-primary: 15 23 42;
+  --bg-secondary: 30 41 59;
+  --bg-tertiary: 38 51 72;
+  --text-primary: 241 245 249;
+  --text-secondary: 148 163 184;
+  --text-muted: 100 116 139;
+  --accent: 129 140 248;
+  --accent-hover: 99 102 241;
+  --border: 51 65 85;
+  --card-bg: 30 41 59;
+  --card-border: 51 65 85;
+  --glow: rgba(129, 140, 248, 0.35);
+  --gradient-from: #818cf8;
+  --gradient-to: #c084fc;
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui);
+  --font-heading: var(--font-inter, ui-sans-serif, system-ui);
+  --font-mono: var(--font-jetbrains, ui-monospace);
+}
+
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+  font-family: var(--font-sans);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.glow-text {
+  text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgb(var(--accent) / 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgb(var(--accent) / 0.12);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px rgb(var(--card-border)), 0 0 20px var(--glow);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px var(--glow);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg-secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--accent));
+  border-radius: 3px;
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+::selection {
+  background: rgb(var(--accent) / 0.3);
+  color: rgb(var(--text-primary));
+}
