@@ -6,6 +6,8 @@ import {
   Shield,
   Check,
   ChevronDown,
+  Phone,
+  Mail,
 } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
@@ -236,6 +238,71 @@ function FaqSection() {
 }
 
 /* ----------------------------------------------------------------
+   Contact section
+   ---------------------------------------------------------------- */
+function ContactSection() {
+  const { t } = useLanguage()
+  return (
+    <section id="contact" className="py-24 px-6 md:px-12 bg-background">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <h2 className="font-heading font-black text-4xl md:text-5xl text-foreground mb-4 glow-text">
+            {t.contact.title}
+          </h2>
+          <p className="text-foreground-secondary text-lg">{t.contact.subtitle}</p>
+        </motion.div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+          <motion.a
+            href={`tel:${t.contact.phone.replace(/\s/g, '')}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-4 px-8 py-6 rounded-xl border border-card-border bg-background-secondary hover:border-primary/50 transition-colors group"
+          >
+            <div className="w-12 h-12 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
+              <Phone size={20} className="text-primary" />
+            </div>
+            <div>
+              <div className="text-xs text-foreground-secondary mb-1">{t.contact.phoneLabel}</div>
+              <div className="font-heading font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+                {t.contact.phone}
+              </div>
+            </div>
+          </motion.a>
+
+          <motion.a
+            href={`mailto:${t.contact.email}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex items-center gap-4 px-8 py-6 rounded-xl border border-card-border bg-background-secondary hover:border-primary/50 transition-colors group"
+          >
+            <div className="w-12 h-12 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
+              <Mail size={20} className="text-primary" />
+            </div>
+            <div>
+              <div className="text-xs text-foreground-secondary mb-1">{t.contact.emailLabel}</div>
+              <div className="font-heading font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+                {t.contact.email}
+              </div>
+            </div>
+          </motion.a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ----------------------------------------------------------------
    Footer
    ---------------------------------------------------------------- */
 function Footer() {
@@ -284,7 +351,10 @@ export default function Home() {
       {/* 6. FAQ */}
       <FaqSection />
 
-      {/* 7. Footer */}
+      {/* 7. Contact */}
+      <ContactSection />
+
+      {/* 8. Footer */}
       <Footer />
     </main>
   )

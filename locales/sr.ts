@@ -12,7 +12,7 @@ export const sr: Translations = {
     headline3: 'Online za 48 sati.',
     subheadline:
       'Pravimo brze, moderne, mobilne sajtove za male biznise i frilensere — od ideje do lansiranja za 48 sati.',
-    cta_primary: 'Nabavite moj sajt',
+    cta_primary: 'Kontakt',
     cta_secondary: 'Portfolio',
     trust: '50+ zadovoljnih klijenata',
     trust2: 'Isporuka za 48 sati',
@@ -164,6 +164,14 @@ export const sr: Translations = {
         description: 'Profesionalna vodoinstalaterska usluga sa pouzdanim, čistim dizajnom.',
       },
     ],
+  },
+  contact: {
+    title: 'Kontaktirajte nas',
+    subtitle: 'Spremni da pokrenete projekat? Javite nam se.',
+    phone: '+381 65 820 0252',
+    email: 'andrej.nedeljkovic@inlock.ai',
+    phoneLabel: 'Telefon',
+    emailLabel: 'Email',
   },
   footer: {
     tagline: 'Brzi sajtovi. Poštena cena. Puno vlasništvo.',

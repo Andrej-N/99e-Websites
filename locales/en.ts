@@ -10,7 +10,7 @@ export const en = {
     headline3: 'Online in 48 Hours.',
     subheadline:
       'We build fast, modern, mobile-ready websites for small businesses and freelancers — from concept to launch in 48 hours.',
-    cta_primary: 'Get My Website Now',
+    cta_primary: 'Contact',
     cta_secondary: 'Portfolio',
     trust: '50+ happy clients',
     trust2: '48-hour delivery',
@@ -162,6 +162,14 @@ export const en = {
         description: 'Professional plumbing service with a trustworthy, clean design.',
       },
     ],
+  },
+  contact: {
+    title: 'Get In Touch',
+    subtitle: 'Ready to start your project? Reach out to us.',
+    phone: '+381 65 820 0252',
+    email: 'andrej.nedeljkovic@inlock.ai',
+    phoneLabel: 'Phone',
+    emailLabel: 'Email',
   },
   footer: {
     tagline: 'Fast websites. Fair price. Full ownership.',
