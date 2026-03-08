@@ -1,194 +1,90 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, Maximize2, Monitor, Smartphone, Tablet } from 'lucide-react'
-import Link from 'next/link'
-import { useLanguage } from '@/context/LanguageContext'
-import { cn } from '@/lib/utils'
+import React, { useState } from "react";
 
-type DeviceView = 'desktop' | 'tablet' | 'mobile'
+const templates = [
+  { id: "bakery", name: "Bakery Theme", path: "/templates/bakery/index.html" },
+  { id: "eyewear", name: "Eyewear Theme", path: "/templates/eyewear/index.html" },
+  { id: "plumber", name: "Plumber Theme", path: "/templates/plumber/index.html" },
+  { id: "elegant", name: "Elegant Theme", path: "/templates/elegant/index.html" },
+  { id: "interactive", name: "Interactive Theme", path: "/templates/interactive/index.html" },
+];
 
 export default function ShowcasePage() {
-  const { t } = useLanguage()
-  const [activePreview, setActivePreview] = useState<string | null>(null)
-  const [deviceView, setDeviceView] = useState<DeviceView>('desktop')
-
-  const items = t.showcase.items
-
-  const deviceWidths: Record<DeviceView, string> = {
-    desktop: '100%',
-    tablet: '768px',
-    mobile: '375px',
-  }
+  const [currentTemplate, setCurrentTemplate] = useState(templates[0].path);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-card-border bg-background-secondary/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-sm text-foreground-secondary hover:text-primary transition-colors"
-          >
-            {t.showcase.backToHome}
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white text-xs font-bold font-mono">W</span>
-            </div>
-            <span className="font-heading font-bold text-foreground">Web99</span>
-          </div>
+    <div className="flex h-screen w-full bg-neutral-950 text-neutral-100 overflow-hidden font-sans">
+      {/* Sidebar */}
+      <aside
+        className={`${isSidebarOpen ? "w-64" : "w-0"
+          } transition-all duration-300 ease-in-out border-r border-neutral-800 bg-neutral-900 flex flex-col shrink-0`}
+      >
+        <div className="p-6 border-b border-neutral-800 flex justify-between items-center">
+          <h2 className={`font-bold text-xl tracking-tight ${!isSidebarOpen && "hidden"}`}>
+            Themes<span className="text-blue-500">.</span>
+          </h2>
         </div>
-      </div>
 
-      {/* Title */}
-      <section className="py-16 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-heading font-black text-4xl md:text-6xl text-foreground mb-4 glow-text"
-          >
-            {t.showcase.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-foreground-secondary text-lg max-w-2xl mx-auto"
-          >
-            {t.showcase.subtitle}
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Grid of previews */}
-      <section className="px-6 md:px-12 pb-24">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((item, i) => (
-            <motion.div
-              key={item.slug}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative rounded-xl border border-card-border bg-background-secondary overflow-hidden hover:border-primary/50 transition-all duration-300"
-            >
-              {/* Iframe thumbnail */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-white">
-                <iframe
-                  src={`/templates/html/${item.slug}.html`}
-                  title={item.title}
-                  className="w-[1280px] h-[800px] origin-top-left pointer-events-none"
-                  style={{ transform: 'scale(0.3)', transformOrigin: 'top left' }}
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
-                {/* Overlay to capture click */}
+        <nav className={`flex-1 overflow-y-auto py-4 ${!isSidebarOpen && "hidden"}`}>
+          <ul className="space-y-1 px-3">
+            {templates.map((template) => (
+              <li key={template.id}>
                 <button
-                  onClick={() => setActivePreview(item.slug)}
-                  className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center cursor-pointer"
+                  onClick={() => setCurrentTemplate(template.path)}
+                  className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-200 text-sm font-medium ${currentTemplate === template.path
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                    : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200"
+                    }`}
                 >
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
-                    <Maximize2 size={14} />
-                    {t.showcase.viewFullscreen}
-                  </span>
+                  {template.name}
                 </button>
-              </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-              {/* Info */}
-              <div className="p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-heading font-bold text-lg text-foreground">
-                    {item.title}
-                  </h3>
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-                    {item.category}
-                  </span>
-                </div>
-                <p className="text-sm text-foreground-secondary leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+        <div className={`p-6 border-t border-neutral-800 ${!isSidebarOpen && "hidden"}`}>
+          <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/`} className="text-xs text-neutral-500 hover:text-neutral-300 transition-colors flex items-center gap-2">
+            &larr; Back to Main Site
+          </a>
         </div>
-      </section>
+      </aside>
 
-      {/* Fullscreen modal */}
-      <AnimatePresence>
-        {activePreview && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/90 flex flex-col"
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col relative bg-white">
+        {/* Top bar for toggling sidebar and actions */}
+        <header className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center pointer-events-none">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="pointer-events-auto bg-neutral-900/80 backdrop-blur-md text-white p-3 rounded-full hover:bg-neutral-800 transition-colors shadow-lg border border-neutral-700/50"
+            aria-label="Toggle Sidebar"
           >
-            {/* Modal header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-background border-b border-card-border">
-              <div className="flex items-center gap-4">
-                <h3 className="font-heading font-bold text-foreground">
-                  {items.find((it) => it.slug === activePreview)?.title}
-                </h3>
-                {/* Device switcher */}
-                <div className="flex items-center gap-1 bg-background-secondary rounded-lg p-1">
-                  {([
-                    { key: 'desktop' as DeviceView, icon: Monitor },
-                    { key: 'tablet' as DeviceView, icon: Tablet },
-                    { key: 'mobile' as DeviceView, icon: Smartphone },
-                  ]).map(({ key, icon: Icon }) => (
-                    <button
-                      key={key}
-                      onClick={() => setDeviceView(key)}
-                      className={cn(
-                        'p-1.5 rounded-md transition-colors',
-                        deviceView === key
-                          ? 'bg-primary text-white'
-                          : 'text-foreground-secondary hover:text-foreground'
-                      )}
-                    >
-                      <Icon size={16} />
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  setActivePreview(null)
-                  setDeviceView('desktop')
-                }}
-                className="flex items-center gap-2 text-sm text-foreground-secondary hover:text-foreground transition-colors"
-              >
-                {t.showcase.closePreview}
-                <X size={18} />
-              </button>
-            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
 
-            {/* Iframe container */}
-            <div className="flex-1 flex items-start justify-center overflow-auto bg-neutral-900 p-4">
-              <motion.div
-                layout
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-white rounded-lg overflow-hidden shadow-2xl h-full"
-                style={{
-                  width: deviceWidths[deviceView],
-                  maxWidth: '100%',
-                }}
-              >
-                <iframe
-                  src={`/templates/html/${activePreview}.html`}
-                  title="Preview"
-                  className="w-full h-full border-0"
-                  style={{ minHeight: 'calc(100vh - 80px)' }}
-                  sandbox="allow-scripts allow-same-origin"
-                />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </main>
-  )
+          {/* Call to action button for purchasing */}
+          <div className="pointer-events-auto flex items-center gap-3 bg-neutral-900/80 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-neutral-700/50">
+            <span className="text-sm font-medium text-neutral-200 hidden sm:inline-block">Like what you see?</span>
+            <button className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold py-1.5 px-4 rounded-full transition-colors shadow-sm">
+              Buy for 99€
+            </button>
+          </div>
+        </header>
+
+        {/* Iframe displaying the actual template */}
+        <iframe
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${currentTemplate}`}
+          className="flex-1 w-full h-full border-none bg-white"
+          title="Theme Preview"
+          sandbox="allow-scripts allow-same-origin"
+        ></iframe>
+      </main>
+    </div>
+  );
 }
