@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 
 const templates = [
-  { id: "bakery", name: "Bakery Theme", path: "/templates/bakery/index.html" },
-  { id: "eyewear", name: "Eyewear Theme", path: "/templates/eyewear/index.html" },
-  { id: "plumber", name: "Plumber Theme", path: "/templates/plumber/index.html" },
-  { id: "elegant", name: "Elegant Theme", path: "/templates/elegant/index.html" },
-  { id: "interactive", name: "Interactive Theme", path: "/templates/interactive/index.html" },
+  { id: "bakery", name: "Bakery Theme", path: "/templates/html/bakery.html" },
+  { id: "eyewear", name: "Eyewear Theme", path: "/templates/html/eyewear.html" },
+  { id: "plumber", name: "Plumber Theme", path: "/templates/html/plumber.html" },
+  { id: "elegant", name: "Elegant Theme", path: "/templates/html/elegant.html" },
+  { id: "interactive", name: "Interactive Theme", path: "/templates/html/interactive.html" },
 ];
 
 export default function ShowcasePage() {
