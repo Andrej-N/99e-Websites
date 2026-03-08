@@ -13,7 +13,7 @@ export const sr: Translations = {
     subheadline:
       'Pravimo brze, moderne, mobilne sajtove za male biznise i frilensere — od ideje do lansiranja za 48 sati.',
     cta_primary: 'Nabavite moj sajt',
-    cta_secondary: 'Pogledajte kako funkcioniše',
+    cta_secondary: 'Portfolio',
     trust: '50+ zadovoljnih klijenata',
     trust2: 'Isporuka za 48 sati',
   },
@@ -123,6 +123,45 @@ export const sr: Translations = {
         question: 'Šta treba da obezbedim?',
         answer:
           'Samo informacije o vašem biznisu, logo (ako ga imate), fotografije ili sadržaj koji želite da koristite, i vašu viziju. Mi ćemo se pobrinuti za ostatak.',
+      },
+    ],
+  },
+  showcase: {
+    title: 'Naši radovi',
+    subtitle: 'Pravi sajtovi koje smo napravili za prave biznise. Pregledajte ih ovde.',
+    backToHome: '← Nazad na početnu',
+    viewFullscreen: 'Prikaži ceo ekran',
+    closePreview: 'Zatvori pregled',
+    items: [
+      {
+        slug: 'bakery',
+        title: 'Meel Pekara',
+        category: 'Hrana i piće',
+        description: 'Zanatski hleb i peciva — topao, privlačan dizajn sa elegantnom tipografijom.',
+      },
+      {
+        slug: 'elegant',
+        title: 'Maison de Coiffure',
+        category: 'Lepota i salon',
+        description: 'Luksuzni frizerski salon sa prefinjenom, minimalističkom estetikom.',
+      },
+      {
+        slug: 'eyewear',
+        title: 'LOOQ Naočare',
+        category: 'Maloprodaja i moda',
+        description: 'Moderan brend naočara sa upečatljivim vizuelima i čistim rasporedom.',
+      },
+      {
+        slug: 'interactive',
+        title: 'ToyBox',
+        category: 'Deca i zabava',
+        description: 'Razigrano, šareno interaktivno iskustvo za prodavnicu igračaka.',
+      },
+      {
+        slug: 'plumber',
+        title: 'FlowFix Vodoinstalatere',
+        category: 'Lokalne usluge',
+        description: 'Profesionalna vodoinstalaterska usluga sa pouzdanim, čistim dizajnom.',
       },
     ],
   },

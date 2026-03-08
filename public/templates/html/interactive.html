@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Interactive - ToyBox</title>
+    <link rel="stylesheet" href="../css/interactive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cursor-follower" id="follower"></div>
+
+    <nav class="navbar nav-playful">
+        <div class="logo">ToyBox! 🧸</div>
+        <ul class="nav-links">
+            <li><a href="#" class="hover-bounce">Toys</a></li>
+            <li><a href="#" class="hover-bounce">Games</a></li>
+            <li><a href="#" class="hover-bounce">Fun Stuff</a></li>
+        </ul>
+        <button class="btn btn-magic" id="magicBtn">Magic Color! ✨</button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="wobbly-text">Welcome to the Most Fun Place!</h1>
+            <p>Discover toys that spark joy, creativity, and endless playtime.</p>
+            <button class="btn btn-primary pulse-btn" id="exploreBtn">Explore Now 🚀</button>
+        </div>
+        <div class="floating-shapes">
+            <div class="shape circle" id="shape1"></div>
+            <div class="shape square" id="shape2"></div>
+            <div class="shape triangle" id="shape3"></div>
+        </div>
+    </header>
+
+    <section class="products">
+        <h2>Featured Fun!</h2>
+        <div class="grid">
+            <div class="toy-card" onmouseover="this.style.transform='scale(1.05) rotate(3deg)'"
+                onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                <div class="toy-img" style="background-color: #ff9ff3;">🤖</div>
+                <h3>Robot Pal</h3>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+            <div class="toy-card" onmouseover="this.style.transform='scale(1.05) rotate(-3deg)'"
+                onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                <div class="toy-img" style="background-color: #feca57;">🧩</div>
+                <h3>Puzzle Magic</h3>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+            <div class="toy-card" onmouseover="this.style.transform='scale(1.05) rotate(3deg)'"
+                onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                <div class="toy-img" style="background-color: #48dbfb;">🎨</div>
+                <h3>Art Kit</h3>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Why ToyBox Section -->
+    <section class="about-section">
+        <h2>Why ToyBox? 🌟</h2>
+        <p class="about-subtitle">Because every kid deserves the best playtime ever!</p>
+        <div class="features-grid">
+            <div class="feature-card" style="background-color: #ff9ff3;">
+                <div class="feature-icon">🎁</div>
+                <h3>Hand-Picked Toys</h3>
+                <p>Every toy is carefully selected by our team of play experts and tiny testers!</p>
+            </div>
+            <div class="feature-card" style="background-color: #48dbfb;">
+                <div class="feature-icon">🛡️</div>
+                <h3>Safe & Certified</h3>
+                <p>All toys meet the highest safety standards. Play worry-free!</p>
+            </div>
+            <div class="feature-card" style="background-color: #1dd1a1;">
+                <div class="feature-icon">🎀</div>
+                <h3>Free Gift Wrapping</h3>
+                <p>Every order comes beautifully wrapped and ready to surprise!</p>
+            </div>
+            <div class="feature-card" style="background-color: #feca57;">
+                <div class="feature-icon">🚀</div>
+                <h3>Fast Delivery</h3>
+                <p>Order today, play tomorrow! Lightning-fast shipping across Serbia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories Section -->
+    <section class="categories-section">
+        <h2>Explore by Category 🗂️</h2>
+        <div class="categories-grid">
+            <a href="#" class="category-card" style="background-color: #ff6b6b;">
+                <span class="category-emoji">🧱</span>
+                <span class="category-name">Building Blocks</span>
+            </a>
+            <a href="#" class="category-card" style="background-color: #feca57;">
+                <span class="category-emoji">🧸</span>
+                <span class="category-name">Stuffed Animals</span>
+            </a>
+            <a href="#" class="category-card" style="background-color: #48dbfb;">
+                <span class="category-emoji">🎲</span>
+                <span class="category-name">Board Games</span>
+            </a>
+            <a href="#" class="category-card" style="background-color: #1dd1a1;">
+                <span class="category-emoji">⚽</span>
+                <span class="category-name">Outdoor Play</span>
+            </a>
+            <a href="#" class="category-card" style="background-color: #ff9ff3;">
+                <span class="category-emoji">🎨</span>
+                <span class="category-name">Arts & Crafts</span>
+            </a>
+            <a href="#" class="category-card" style="background-color: #5f27cd; color: #fff;">
+                <span class="category-emoji">🏎️</span>
+                <span class="category-name">RC Cars</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Bestsellers / Popular Section -->
+    <section class="bestsellers-section">
+        <h2>Bestsellers 🔥</h2>
+        <div class="bestsellers-grid">
+            <div class="bestseller-card">
+                <span class="bestseller-badge hot">🔥 Hot</span>
+                <div class="bestseller-icon" style="background-color: #ff6b6b;">🦖</div>
+                <h3>Dino Explorer Set</h3>
+                <p>12 realistic dinosaurs for epic prehistoric adventures!</p>
+                <div class="bestseller-price">2,490 RSD</div>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+            <div class="bestseller-card">
+                <span class="bestseller-badge top">⭐ Top Rated</span>
+                <div class="bestseller-icon" style="background-color: #feca57;">🏰</div>
+                <h3>Castle Builder Deluxe</h3>
+                <p>200+ pieces to build the kingdom of your dreams!</p>
+                <div class="bestseller-price">4,990 RSD</div>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+            <div class="bestseller-card">
+                <span class="bestseller-badge hot">🔥 Hot</span>
+                <div class="bestseller-icon" style="background-color: #48dbfb;">🚂</div>
+                <h3>Turbo Train Track</h3>
+                <p>Build tracks, race trains, and create your own railway world!</p>
+                <div class="bestseller-price">3,290 RSD</div>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+            <div class="bestseller-card">
+                <span class="bestseller-badge top">⭐ Top Rated</span>
+                <div class="bestseller-icon" style="background-color: #1dd1a1;">🎸</div>
+                <h3>Mini Rock Star Kit</h3>
+                <p>Guitar, drums & mic - everything for a backyard concert!</p>
+                <div class="bestseller-price">3,790 RSD</div>
+                <button class="btn btn-secondary add-to-cart">Grab It!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Reviews Section -->
+    <section class="testimonials-section">
+        <h2>Happy Parents Say 💬</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card" style="border-top: 6px solid #ff9ff3;">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"My son won't stop playing with the Dino Explorer Set! Best birthday gift ever. ToyBox delivery was super fast too!"</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Milica Jovanović</span>
+                    <span class="author-location">📍 Beograd</span>
+                </div>
+            </div>
+            <div class="testimonial-card" style="border-top: 6px solid #48dbfb;">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Fantastic quality and the free gift wrapping is such a lovely touch. My daughter's face lit up! Will definitely order again."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Stefan Nikolić</span>
+                    <span class="author-location">📍 Novi Sad</span>
+                </div>
+            </div>
+            <div class="testimonial-card" style="border-top: 6px solid #1dd1a1;">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Finally a toy store that cares about safety! Every toy is certified and well-made. Called their support at +381 11 345 6789 - super helpful!"</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Ana Petrović</span>
+                    <span class="author-location">📍 Niš</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / CTA Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Join the Fun Club! 🎉</h2>
+            <p>Get exclusive deals, sneak peeks at new toys, and a <strong>10% OFF</strong> welcome coupon!</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address 📧" class="newsletter-input" id="newsletterEmail" required>
+                <button type="submit" class="btn btn-primary newsletter-btn">Count Me In! 🥳</button>
+            </form>
+            <p class="newsletter-note">No spam, pinky promise! 🤞 Unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">ToyBox! 🧸</div>
+                <p class="footer-tagline">Where playtime never ends!</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>📍 Knez Mihailova 45, Beograd</p>
+                <p>📞 +381 11 345 6789</p>
+                <p>✉️ hello@toybox.rs</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow the Fun</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">📸 Instagram</a>
+                    <a href="#" class="social-link">👍 Facebook</a>
+                    <a href="#" class="social-link">🎵 TikTok</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 ToyBox! All rights reserved. Made with ❤️ in Serbia.</p>
+        </div>
+    </footer>
+
+    <!-- Confetti Container -->
+    <div id="confetti-container"></div>
+
+    <script src="../js/interactive.js"></script>
+</body>
+
+</html>

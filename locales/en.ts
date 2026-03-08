@@ -11,7 +11,7 @@ export const en = {
     subheadline:
       'We build fast, modern, mobile-ready websites for small businesses and freelancers — from concept to launch in 48 hours.',
     cta_primary: 'Get My Website Now',
-    cta_secondary: 'See How It Works',
+    cta_secondary: 'Portfolio',
     trust: '50+ happy clients',
     trust2: '48-hour delivery',
   },
@@ -121,6 +121,45 @@ export const en = {
         question: 'What do I need to provide?',
         answer:
           'Just your business information, logo (if you have one), any photos or content you want to use, and your vision. We will handle the rest.',
+      },
+    ],
+  },
+  showcase: {
+    title: 'Our Work',
+    subtitle: 'Real websites we built for real businesses. Browse them right here.',
+    backToHome: '← Back to Home',
+    viewFullscreen: 'View Fullscreen',
+    closePreview: 'Close Preview',
+    items: [
+      {
+        slug: 'bakery',
+        title: 'Meel Bakery',
+        category: 'Food & Beverage',
+        description: 'Artisan bread & pastries — warm, inviting design with elegant typography.',
+      },
+      {
+        slug: 'elegant',
+        title: 'Maison de Coiffure',
+        category: 'Beauty & Salon',
+        description: 'Luxury hair salon with a refined, minimalist aesthetic.',
+      },
+      {
+        slug: 'eyewear',
+        title: 'LOOQ Eyewear',
+        category: 'Retail & Fashion',
+        description: 'Modern eyewear brand with bold visuals and clean layout.',
+      },
+      {
+        slug: 'interactive',
+        title: 'ToyBox',
+        category: 'Kids & Fun',
+        description: 'Playful, colorful interactive experience for a toy store.',
+      },
+      {
+        slug: 'plumber',
+        title: 'FlowFix Plumbing',
+        category: 'Local Services',
+        description: 'Professional plumbing service with a trustworthy, clean design.',
       },
     ],
   },

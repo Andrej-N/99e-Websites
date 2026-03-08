@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowFix Plumbing | Reliable Local Plumber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a56db;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            transition: box-shadow 0.3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #1648b8;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--dark);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 60px;
+            background: var(--light);
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #1648b8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--dark);
+            border: 1.5px solid #d1d5db;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .hero-visual {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            min-height: 380px;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* SERVICES */
+        .services {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .section-sub {
+            color: var(--gray);
+            font-size: 1.05rem;
+            max-width: 520px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: transform 0.25s, box-shadow 0.25s;
+            cursor: default;
+            border: 1px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-color: #dbeafe;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* WHY US */
+        .why {
+            padding: 100px 24px;
+            background: var(--dark);
+            color: #fff;
+        }
+
+        .why-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .why .section-label {
+            color: #93c5fd;
+        }
+
+        .why .section-sub {
+            color: #9ca3af;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .why-item {
+            background: #1f2937;
+            border-radius: 14px;
+            padding: 28px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .why-item .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .why-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .why-item p {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* REVIEWS */
+        .reviews {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .review-card {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stars {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .review-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reviewer-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .reviewer-loc {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 80px 24px;
+            margin: 0 auto;
+            max-width: 1100px;
+        }
+
+        .cta-box {
+            background: var(--primary);
+            border-radius: 24px;
+            padding: 64px 48px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-box h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 14px;
+        }
+
+        .cta-box p {
+            color: #bfdbfe;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+        }
+
+        .cta-box .btn-white {
+            background: #fff;
+            color: var(--primary);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .cta-box .btn-white:hover {
+            transform: translateY(-2px);
+        }
+
+        .cta-box .phone {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 48px 24px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .services-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 24px;
+                border-bottom: 1px solid #e5e7eb;
+                gap: 16px;
+            }
+        }
+
+        /* ANIMATIONS */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-inner">
+            <div class="logo">Flow<span>Fix</span></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services" data-en="Services" data-sr="Usluge">Services</a></li>
+                <li><a href="#why" data-en="Why Us" data-sr="Zašto Mi">Why Us</a></li>
+                <li><a href="#reviews" data-en="Reviews" data-sr="Recenzije">Reviews</a></li>
+            </ul>
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()"
+                style="background:none;border:1.5px solid #d1d5db;padding:8px 14px;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--gray);transition:all 0.2s;margin-right:8px;">SR
+                🇷🇸</button>
+            <button class="nav-cta" id="navCta"
+                onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <span class="hero-tag" data-en="Trusted Local Plumber" data-sr="Pouzdani Lokalni Vodoinstalater">Trusted
+                    Local Plumber</span>
+                <h1 data-en="Fast fixes. Fair prices. No nonsense."
+                    data-sr="Brze popravke. Fer cene. Bez komplikacija.">Fast fixes. Fair prices. No nonsense.</h1>
+                <p data-en="From leaky taps to full bathroom installs, FlowFix has been keeping homes dry and pipes flowing for over 12 years in the greater Belgrade area."
+                    data-sr="Od curećih slavina do kompletnih instalacija kupatila, FlowFix održava domove suvim i cevi prohodnim već preko 12 godina u širem području Beograda.">
+                    From leaky taps to full bathroom installs, FlowFix has been keeping homes dry and pipes flowing for
+                    over 12 years in the greater Belgrade area.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="heroBookBtn"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        data-en="Book a Visit" data-sr="Zakažite Posetu">Book a Visit</button>
+                    <button class="btn-secondary" id="heroServicesBtn"
+                        onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})"
+                        data-en="Our Services" data-sr="Naše Usluge">Our Services</button>
+                </div>
+            </div>
+            <div class="hero-visual" style="padding: 24px;">
+                <img src="../images/plumber_hero_cover.png" alt="Plumber tools close-up"
+                    style="width: 100%; height: 260px; border-radius: 12px; margin-bottom: 24px; object-fit: cover;">
+                <div style="font-weight:600; font-size:1.1rem; color:var(--dark);"
+                    data-en="Trusted by 2,400+ homeowners" data-sr="Preko 2.400 zadovoljnih vlasnika domova">Trusted by
+                    2,400+ homeowners</div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-num" id="statYears">0</div>
+                        <div class="stat-label" data-en="Years Experience" data-sr="Godina Iskustva">Years Experience
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="statJobs">0</div>
+                        <div class="stat-label" data-en="Jobs Completed" data-sr="Završenih Poslova">Jobs Completed
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="statRating">0</div>
+                        <div class="stat-label" data-en="Google Rating" data-sr="Google Ocena">Google Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-label" data-en="What We Do" data-sr="Šta Radimo">What We Do</div>
+        <h2 class="section-title" data-en="Our Services" data-sr="Naše Usluge">Our Services</h2>
+        <p class="section-sub" data-en="Honest, reliable plumbing for every situation. No job is too small."
+            data-sr="Poštene i pouzdane vodoinstalaterske usluge za svaku situaciju. Nijedan posao nije premali.">
+            Honest, reliable plumbing for every situation. No job is too small.</p>
+        <div class="services-grid">
+            <div class="service-card fade-up">
+                <div class="service-icon">&#128703;</div>
+                <h3 data-en="Emergency Repairs" data-sr="Hitne Popravke">Emergency Repairs</h3>
+                <p data-en="Burst pipe at 2am? We're on call 24/7 for urgent plumbing emergencies across the city."
+                    data-sr="Pukla cev u 2 ujutru? Dostupni smo 24/7 za hitne vodoinstalaterske intervencije širom grada.">
+                    Burst pipe at 2am? We're on call 24/7 for urgent plumbing emergencies across the city.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon">&#128705;</div>
+                <h3 data-en="Bathroom Install" data-sr="Ugradnja Kupatila">Bathroom Install</h3>
+                <p data-en="Full bathroom renovations from concept to completion. Tiling, plumbing, fixtures &mdash; all handled."
+                    data-sr="Kompletne renovacije kupatila od ideje do realizacije. Pločice, vodovod, armatura &mdash; sve na jednom mestu.">
+                    Full bathroom renovations from concept to completion. Tiling, plumbing, fixtures &mdash; all
+                    handled.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon">&#9749;</div>
+                <h3 data-en="Kitchen Plumbing" data-sr="Kuhinjski Vodovod">Kitchen Plumbing</h3>
+                <p data-en="Sink replacements, dishwasher hookups, and garbage disposal installation."
+                    data-sr="Zamena sudopera, priključivanje mašine za sudove i ugradnja drobilice za otpad.">Sink
+                    replacements, dishwasher hookups, and garbage disposal installation.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon">&#127777;&#65039;</div>
+                <h3 data-en="Heating Systems" data-sr="Sistemi Grejanja">Heating Systems</h3>
+                <p data-en="Boiler servicing, radiator fitting, and underfloor heating installation and repairs."
+                    data-sr="Servisiranje kotlova, ugradnja radijatora i podno grejanje - ugradnja i popravke.">Boiler
+                    servicing, radiator fitting, and underfloor heating installation and repairs.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon">&#128167;</div>
+                <h3 data-en="Leak Detection" data-sr="Detekcija Curenja">Leak Detection</h3>
+                <p data-en="Advanced thermal imaging to find hidden leaks without tearing apart your walls."
+                    data-sr="Napredna termalna kamera za pronalaženje skrivenih curenja bez rušenja zidova.">Advanced
+                    thermal imaging to find hidden leaks without tearing apart your walls.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon">&#9881;&#65039;</div>
+                <h3 data-en="Maintenance" data-sr="Održavanje">Maintenance</h3>
+                <p data-en="Annual plumbing check-ups to prevent expensive surprises down the road."
+                    data-sr="Godišnji pregledi vodovoda kako bi se sprečila skupa iznenađenja u budućnosti.">Annual
+                    plumbing check-ups to prevent expensive surprises down the road.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why" id="why">
+        <div class="why-inner">
+            <div class="section-label" data-en="Why FlowFix" data-sr="Zašto FlowFix">Why FlowFix</div>
+            <h2 class="section-title" data-en="Why homeowners choose us" data-sr="Zašto nas vlasnici domova biraju">Why
+                homeowners choose us</h2>
+            <p class="section-sub" data-en="We treat your home like our own. That's not a slogan, it's how we work."
+                data-sr="Prema vašem domu se odnosimo kao prema svom. To nije slogan, to je način na koji radimo.">We
+                treat your home like our own. That's not a slogan, it's how we work.</p>
+            <div class="why-grid">
+                <div class="why-item fade-up">
+                    <div class="icon">&#9201;</div>
+                    <div>
+                        <h4 data-en="Same-Day Service" data-sr="Usluga Istog Dana">Same-Day Service</h4>
+                        <p data-en="Most non-emergency calls are handled the same day. No waiting around for a week."
+                            data-sr="Većina poziva koji nisu hitni rešava se istog dana. Bez čekanja nedelju dana.">Most
+                            non-emergency calls are handled the same day. No waiting around for a week.</p>
+                    </div>
+                </div>
+                <div class="why-item fade-up">
+                    <div class="icon">&#128176;</div>
+                    <div>
+                        <h4 data-en="Upfront Pricing" data-sr="Transparentne Cene">Upfront Pricing</h4>
+                        <p data-en="You'll always know the cost before we start. No hidden fees, no surprise charges."
+                            data-sr="Uvek ćete znati cenu pre nego što počnemo. Bez skrivenih troškova, bez iznenađenja.">
+                            You'll always know the cost before we start. No hidden fees, no surprise charges.</p>
+                    </div>
+                </div>
+                <div class="why-item fade-up">
+                    <div class="icon">&#128736;</div>
+                    <div>
+                        <h4 data-en="Certified Pros" data-sr="Sertifikovani Stručnjaci">Certified Pros</h4>
+                        <p data-en="All our plumbers are fully licensed, insured, and background-checked."
+                            data-sr="Svi naši vodoinstalateri su licencirani, osigurani i provereni.">All our plumbers
+                            are fully licensed, insured, and background-checked.</p>
+                    </div>
+                </div>
+                <div class="why-item fade-up">
+                    <div class="icon">&#128155;</div>
+                    <div>
+                        <h4 data-en="2-Year Guarantee" data-sr="Garancija 2 Godine">2-Year Guarantee</h4>
+                        <p data-en="Every job comes with a 2-year workmanship warranty. We stand behind our work."
+                            data-sr="Svaki posao dolazi sa dvogodišnjom garancijom na rad. Stojimo iza svog rada.">Every
+                            job comes with a 2-year workmanship warranty. We stand behind our work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <div class="section-label" data-en="Testimonials" data-sr="Iskustva Klijenata">Testimonials</div>
+        <h2 class="section-title" data-en="What our customers say" data-sr="Šta kažu naši klijenti">What our customers
+            say</h2>
+        <p class="section-sub" data-en="Real reviews from real homeowners."
+            data-sr="Prave recenzije pravih vlasnika domova.">Real reviews from real homeowners.</p>
+        <div class="reviews-grid">
+            <div class="review-card fade-up">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p data-en="&quot;Called at 7am with a flooded kitchen. They were here by 8:30 and had it fixed before lunch. Absolute lifesavers.&quot;"
+                    data-sr="&quot;Pozvao sam u 7 ujutru sa poplavljenom kuhinjom. Bili su tu do 8:30 i popravili sve pre ručka. Pravi spasioci.&quot;">
+                    "Called at 7am with a flooded kitchen. They were here by 8:30 and had it fixed before lunch.
+                    Absolute lifesavers."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar" data-en="MK" data-sr="MK">MK</div>
+                    <div>
+                        <div class="reviewer-name" data-en="Marko Kovačević" data-sr="Marko Kovačević">Marko Kovačević
+                        </div>
+                        <div class="reviewer-loc" data-en="Vračar, Belgrade" data-sr="Vračar, Beograd">Vračar, Belgrade
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card fade-up">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p data-en="&quot;Honest pricing, clean work, and they even cleaned up after themselves. Will use FlowFix for every plumbing job from now on.&quot;"
+                    data-sr="&quot;Poštene cene, čist rad, i čak su sve počistili za sobom. Koristiću FlowFix za svaki vodoinstalaterski posao od sada.&quot;">
+                    "Honest pricing, clean work, and they even cleaned up after themselves. Will use FlowFix for every
+                    plumbing job from now on."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar" data-en="SB" data-sr="SB">SB</div>
+                    <div>
+                        <div class="reviewer-name" data-en="Sofija Bakić" data-sr="Sofija Bakić">Sofija Bakić</div>
+                        <div class="reviewer-loc" data-en="Dorćol, Belgrade" data-sr="Dorćol, Beograd">Dorćol, Belgrade
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card fade-up">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p data-en="&quot;Third plumber we tried for our old building's pipes. Only one who actually fixed the problem permanently. Highly recommend.&quot;"
+                    data-sr="&quot;Treći vodoinstalater kojeg smo probali za cevi u staroj zgradi. Jedini koji je zaista trajno rešio problem. Toplo preporučujem.&quot;">
+                    "Third plumber we tried for our old building's pipes. Only one who actually fixed the problem
+                    permanently. Highly recommend."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar" data-en="JV" data-sr="JV">JV</div>
+                    <div>
+                        <div class="reviewer-name" data-en="Jovan Vasić" data-sr="Jovan Vasić">Jovan Vasić</div>
+                        <div class="reviewer-loc" data-en="Stari Grad, Belgrade" data-sr="Stari Grad, Beograd">Stari
+                            Grad, Belgrade</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="cta">
+        <div class="cta-box fade-up">
+            <h2 data-en="Need a plumber? Let's talk." data-sr="Treba vam vodoinstalater? Javite nam se.">Need a plumber?
+                Let's talk.</h2>
+            <p data-en="Free estimates. No obligation. Just honest advice from local pros."
+                data-sr="Besplatne procene. Bez obaveza. Samo pošten savet od lokalnih stručnjaka.">Free estimates. No
+                obligation. Just honest advice from local pros.</p>
+            <button class="btn-white" onclick="document.getElementById('contactModal').style.display='flex'"
+                data-en="Request a Free Quote" data-sr="Zatražite Besplatnu Ponudu">Request a Free Quote</button>
+            <span class="phone">&#9742; +381 11 234 5678</span>
+        </div>
+    </section>
+
+    <footer>
+        <p data-en="&copy; 2026 FlowFix Plumbing. All rights reserved. | Belgrade, Serbia"
+            data-sr="&copy; 2026 FlowFix Vodovod. Sva prava zadržana. | Beograd, Srbija">&copy; 2026 FlowFix Plumbing.
+            All rights reserved. | Belgrade, Serbia</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div id="contactModal"
+        style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:200; align-items:center; justify-content:center; padding:24px;">
+        <div style="background:#fff; border-radius:20px; padding:40px; max-width:440px; width:100%; position:relative;">
+            <button onclick="document.getElementById('contactModal').style.display='none'"
+                style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#9ca3af;">&times;</button>
+            <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:6px;" data-en="Get a Free Quote"
+                data-sr="Zatražite Besplatnu Ponudu">Get a Free Quote</h3>
+            <p style="color:#6b7280; font-size:0.9rem; margin-bottom:24px;"
+                data-en="We'll get back to you within 2 hours." data-sr="Javićemo vam se u roku od 2 sata.">We'll get
+                back to you within 2 hours.</p>
+            <form id="quoteForm" onsubmit="return false;">
+                <input type="text" placeholder="Your name" required
+                    style="width:100%; padding:12px 16px; border:1.5px solid #d1d5db; border-radius:10px; font-size:0.9rem; margin-bottom:12px; font-family:inherit;">
+                <input type="tel" placeholder="Phone number" required
+                    style="width:100%; padding:12px 16px; border:1.5px solid #d1d5db; border-radius:10px; font-size:0.9rem; margin-bottom:12px; font-family:inherit;">
+                <select
+                    style="width:100%; padding:12px 16px; border:1.5px solid #d1d5db; border-radius:10px; font-size:0.9rem; margin-bottom:12px; font-family:inherit; color:#6b7280;">
+                    <option>Emergency Repair</option>
+                    <option>Bathroom Install</option>
+                    <option>Kitchen Plumbing</option>
+                    <option>Heating</option>
+                    <option>Leak Detection</option>
+                    <option>Other</option>
+                </select>
+                <textarea placeholder="Describe your issue..." rows="3"
+                    style="width:100%; padding:12px 16px; border:1.5px solid #d1d5db; border-radius:10px; font-size:0.9rem; margin-bottom:16px; font-family:inherit; resize:vertical;"></textarea>
+                <button type="submit" class="btn-primary" style="width:100%;">Send Request</button>
+            </form>
+            <div id="formSuccess" style="display:none; text-align:center; padding:20px 0;">
+                <div style="font-size:3rem; margin-bottom:12px;">&#9989;</div>
+                <h4 style="font-size:1.1rem; font-weight:600; margin-bottom:6px;" data-en="Request Sent!"
+                    data-sr="Zahtev Poslat!">Request Sent!</h4>
+                <p style="color:#6b7280; font-size:0.9rem;" data-en="We'll call you back shortly."
+                    data-sr="Uskoro ćemo vas pozvati.">We'll call you back shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/plumber.js"></script>
+</body>
+
+</html>

@@ -10,7 +10,8 @@
       "Read(//tmp/**)",
       "Bash(npx tailwindcss:*)",
       "Bash(curl:*)",
-      "Bash(npm ls:*)"
+      "Bash(npm ls:*)",
+      "Bash(git:*)"
     ]
   }
 }

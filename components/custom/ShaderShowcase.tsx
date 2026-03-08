@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronDown, Star } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
@@ -234,9 +235,11 @@ export function ShaderShowcase() {
               className="transition-transform group-hover:translate-x-1"
             />
           </Button>
-          <Button size="xl" variant="outline" className="w-full sm:w-auto">
-            {t.hero.cta_secondary}
-          </Button>
+          <Link href="/showcase">
+            <Button size="xl" variant="outline" className="w-full sm:w-auto">
+              {t.hero.cta_secondary}
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Trust indicators */}

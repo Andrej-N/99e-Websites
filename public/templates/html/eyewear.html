@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOOQ Eyewear | See the World Differently</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --accent: #e85d04;
+            --cream: #f5f0eb;
+            --muted: #888;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+
+        /* CURSOR FOLLOWER */
+        .cursor-dot {
+            width: 12px; height: 12px; border-radius: 50%; background: var(--accent);
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+            transition: transform 0.15s; mix-blend-mode: difference;
+        }
+        .cursor-ring {
+            width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--accent);
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+            transition: transform 0.08s;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 20px 40px; display: flex; align-items: center; justify-content: space-between;
+            mix-blend-mode: difference;
+        }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: #fff; letter-spacing: 4px; }
+        .nav-right { display: flex; gap: 30px; align-items: center; }
+        .nav-right a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+        .nav-right a:hover { opacity: 0.6; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 120px 24px 80px; position: relative;
+        }
+        .hero-overline {
+            font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--accent); font-weight: 600; margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 6rem; font-weight: 700;
+            letter-spacing: -3px; line-height: 1; margin-bottom: 24px;
+        }
+        .hero p { color: var(--muted); font-size: 1.15rem; max-width: 480px; line-height: 1.7; margin-bottom: 40px; }
+        .hero-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--black); color: #fff; padding: 16px 36px;
+            border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+            text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
+            transition: transform 0.3s, gap 0.3s;
+        }
+        .hero-btn:hover { transform: scale(1.03); gap: 16px; }
+        .hero-btn .arrow { font-size: 1.2rem; transition: transform 0.3s; }
+        .scroll-indicator {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .scroll-indicator span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); }
+        .scroll-line { width: 1px; height: 40px; background: var(--muted); animation: scrollPulse 2s infinite; }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        /* MARQUEE */
+        .marquee-wrap { overflow: hidden; padding: 30px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+        .marquee {
+            display: flex; gap: 60px; white-space: nowrap;
+            animation: marqueeScroll 20s linear infinite;
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem;
+            font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 3px;
+        }
+        @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* PRODUCTS */
+        .products { padding: 120px 40px; max-width: 1200px; margin: 0 auto; }
+        .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+        .products-header h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3rem;
+            font-weight: 700; letter-spacing: -1.5px;
+        }
+        .filter-tabs { display: flex; gap: 8px; }
+        .filter-tab {
+            padding: 8px 20px; border-radius: 50px; border: 1.5px solid #ccc;
+            background: none; font-family: inherit; font-size: 0.8rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.3s; font-weight: 500;
+        }
+        .filter-tab.active, .filter-tab:hover { background: var(--black); color: #fff; border-color: var(--black); }
+
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .product-card {
+            border-radius: 20px; overflow: hidden; background: #fff;
+            transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+            cursor: pointer; position: relative;
+        }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-img {
+            height: 320px; display: flex; align-items: center; justify-content: center;
+            font-size: 6rem; position: relative; overflow: hidden;
+        }
+        .product-img .bg-circle {
+            width: 180px; height: 180px; border-radius: 50%; position: absolute;
+            opacity: 0.15; transition: transform 0.5s;
+        }
+        .product-card:hover .bg-circle { transform: scale(1.3); }
+        .product-info { padding: 24px; }
+        .product-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; }
+        .product-type { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .product-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; }
+        .product-tag {
+            position: absolute; top: 16px; right: 16px; background: var(--accent);
+            color: #fff; font-size: 0.7rem; font-weight: 600; padding: 4px 12px;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 120px 40px; background: var(--black); color: #fff;
+        }
+        .features-inner { max-width: 1200px; margin: 0 auto; }
+        .features h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3rem;
+            font-weight: 700; letter-spacing: -1.5px; margin-bottom: 60px; text-align: center;
+        }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
+        .feature-item { }
+        .feature-num {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3rem;
+            font-weight: 700; color: var(--accent); margin-bottom: 8px;
+        }
+        .feature-label { font-size: 0.85rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* ABOUT */
+        .about { padding: 120px 40px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-visual {
+            background: var(--black); border-radius: 24px; height: 450px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 8rem; color: #fff; position: relative; overflow: hidden;
+        }
+        .about-visual::after {
+            content: ''; position: absolute; width: 200px; height: 200px;
+            border-radius: 50%; background: var(--accent); opacity: 0.2;
+            top: -40px; right: -40px;
+        }
+        .about-content .label {
+            font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--accent); font-weight: 600; margin-bottom: 16px;
+        }
+        .about-content h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem;
+            font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 20px;
+        }
+        .about-content p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+
+        /* VISIT */
+        .visit { padding: 120px 40px; text-align: center; }
+        .visit h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem;
+            font-weight: 700; letter-spacing: -2px; margin-bottom: 16px;
+        }
+        .visit p { color: var(--muted); font-size: 1.05rem; margin-bottom: 40px; }
+        .visit-cards { display: flex; gap: 24px; justify-content: center; max-width: 900px; margin: 0 auto; }
+        .visit-card {
+            flex: 1; background: #fff; border-radius: 20px; padding: 36px 28px;
+            text-align: center; transition: transform 0.3s;
+        }
+        .visit-card:hover { transform: translateY(-4px); }
+        .visit-card .icon { font-size: 2rem; margin-bottom: 14px; }
+        .visit-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+        .visit-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0; }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 40px; background: var(--black); color: #fff;
+        }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: 4px; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: #888; text-decoration: none; font-size: 0.85rem; }
+        .footer-links a:hover { color: #fff; }
+        .footer-copy { color: #555; font-size: 0.8rem; }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3.2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .about { grid-template-columns: 1fr; }
+            .about-visual { height: 300px; }
+            .visit-cards { flex-direction: column; }
+            .products-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .nav-right { display: none; }
+            .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+        }
+
+        /* ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <nav>
+        <div class="logo">LOOQ</div>
+        <div class="nav-right">
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()" style="background:none;border:1.5px solid rgba(255,255,255,0.3);padding:6px 14px;border-radius:50px;font-size:0.75rem;font-weight:600;cursor:pointer;color:#fff;letter-spacing:1px;transition:all 0.2s;">SR 🇷🇸</button>
+            <a href="#products" data-en="Shop" data-sr="Prodavnica">Shop</a>
+            <a href="#about" data-en="About" data-sr="O Nama">About</a>
+            <a href="#visit" data-en="Visit" data-sr="Prodavnice">Visit</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-overline" data-en="New Collection 2026" data-sr="Nova Kolekcija 2026">New Collection 2026</div>
+        <h1 data-en="See the world<br>differently." data-sr="Pogledaj svet<br>drugačije.">See the world<br>differently.</h1>
+        <p data-en="Handcrafted eyewear made from sustainable materials. Designed in Belgrade, worn everywhere." data-sr="Ručno izrađeni okviri od održivih materijala. Dizajnirano u Beogradu, nošeno svuda.">Handcrafted eyewear made from sustainable materials. Designed in Belgrade, worn everywhere.</p>
+        <a href="#products" class="hero-btn">
+            Explore Collection <span class="arrow">&rarr;</span>
+        </a>
+        <div class="scroll-indicator">
+            <span data-en="Scroll" data-sr="Skroluj">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <div class="marquee-wrap">
+        <div class="marquee" id="marquee">
+            <span data-en="Handcrafted" data-sr="Ručna Izrada">Handcrafted</span><span>&bull;</span>
+            <span data-en="Sustainable" data-sr="Održivo">Sustainable</span><span>&bull;</span>
+            <span data-en="UV400 Protection" data-sr="UV400 Zaštita">UV400 Protection</span><span>&bull;</span>
+            <span data-en="Free Shipping" data-sr="Besplatna Dostava">Free Shipping</span><span>&bull;</span>
+            <span data-en="2 Year Warranty" data-sr="2 Godine Garancije">2 Year Warranty</span><span>&bull;</span>
+            <span data-en="Prescription Ready" data-sr="Za Dioptriju">Prescription Ready</span><span>&bull;</span>
+            <span data-en="Handcrafted" data-sr="Ručna Izrada">Handcrafted</span><span>&bull;</span>
+            <span data-en="Sustainable" data-sr="Održivo">Sustainable</span><span>&bull;</span>
+            <span data-en="UV400 Protection" data-sr="UV400 Zaštita">UV400 Protection</span><span>&bull;</span>
+            <span data-en="Free Shipping" data-sr="Besplatna Dostava">Free Shipping</span><span>&bull;</span>
+            <span data-en="2 Year Warranty" data-sr="2 Godine Garancije">2 Year Warranty</span><span>&bull;</span>
+            <span data-en="Prescription Ready" data-sr="Za Dioptriju">Prescription Ready</span><span>&bull;</span>
+        </div>
+    </div>
+
+    <section class="products" id="products">
+        <div class="products-header">
+            <h2 class="reveal" data-en="Our Frames" data-sr="Naši Okviri">Our Frames</h2>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" data-en="All" data-sr="Sve">All</button>
+                <button class="filter-tab" data-filter="sun" data-en="Sunglasses" data-sr="Naočare za Sunce">Sunglasses</button>
+                <button class="filter-tab" data-filter="optical" data-en="Optical" data-sr="Dioptrijske">Optical</button>
+            </div>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <div class="product-card reveal" data-category="sun">
+                <div class="product-img" style="background:#fef3e2;">
+                    <div class="bg-circle" style="background:var(--accent);"></div>
+                    &#128526;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Voyager</div>
+                    <div class="product-type" data-en="Sunglasses" data-sr="Naočare za Sunce">Sunglasses</div>
+                    <div class="product-price">&euro;129</div>
+                </div>
+                <span class="product-tag" data-en="Bestseller" data-sr="Najprodavaniji">Bestseller</span>
+            </div>
+            <div class="product-card reveal" data-category="optical">
+                <div class="product-img" style="background:#e8f0f2;">
+                    <div class="bg-circle" style="background:#2563eb;"></div>
+                    &#128083;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Scholar</div>
+                    <div class="product-type" data-en="Optical" data-sr="Dioptrijske">Optical</div>
+                    <div class="product-price">&euro;149</div>
+                </div>
+            </div>
+            <div class="product-card reveal" data-category="sun">
+                <div class="product-img" style="background:#f0ebe3;">
+                    <div class="bg-circle" style="background:#92400e;"></div>
+                    &#128526;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Nomad</div>
+                    <div class="product-type" data-en="Sunglasses" data-sr="Naočare za Sunce">Sunglasses</div>
+                    <div class="product-price">&euro;139</div>
+                </div>
+            </div>
+            <div class="product-card reveal" data-category="optical">
+                <div class="product-img" style="background:#ede9fe;">
+                    <div class="bg-circle" style="background:#7c3aed;"></div>
+                    &#128083;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Muse</div>
+                    <div class="product-type" data-en="Optical" data-sr="Dioptrijske">Optical</div>
+                    <div class="product-price">&euro;159</div>
+                </div>
+                <span class="product-tag" data-en="New" data-sr="Novo">New</span>
+            </div>
+            <div class="product-card reveal" data-category="sun">
+                <div class="product-img" style="background:#fce7f3;">
+                    <div class="bg-circle" style="background:#db2777;"></div>
+                    &#128526;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Sunset</div>
+                    <div class="product-type" data-en="Sunglasses" data-sr="Naočare za Sunce">Sunglasses</div>
+                    <div class="product-price">&euro;119</div>
+                </div>
+            </div>
+            <div class="product-card reveal" data-category="optical">
+                <div class="product-img" style="background:#ecfdf5;">
+                    <div class="bg-circle" style="background:#059669;"></div>
+                    &#128083;
+                </div>
+                <div class="product-info">
+                    <div class="product-name">The Classic</div>
+                    <div class="product-type" data-en="Optical" data-sr="Dioptrijske">Optical</div>
+                    <div class="product-price">&euro;139</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-inner">
+            <h2 class="reveal" data-en="Built Different" data-sr="Drugačije Građeno">Built Different</h2>
+            <div class="features-grid">
+                <div class="feature-item reveal">
+                    <div class="feature-num" data-target="50000">0</div>
+                    <div class="feature-label" data-en="Happy Customers" data-sr="Zadovoljnih Kupaca">Happy Customers</div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-num" data-target="120">0</div>
+                    <div class="feature-label" data-en="Frame Styles" data-sr="Stilova Okvira">Frame Styles</div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-num" data-target="3">0</div>
+                    <div class="feature-label" data-en="Stores in Europe" data-sr="Prodavnice u Srbiji">Stores in Europe</div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-num" data-target="100">0</div>
+                    <div class="feature-label" data-en="% Sustainable" data-sr="% Održivo">% Sustainable</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-visual reveal">&#128083;</div>
+        <div class="about-content">
+            <div class="label reveal" data-en="Our Story" data-sr="Naša Priča">Our Story</div>
+            <h2 class="reveal" data-en="Designed in Belgrade.<br>Made to last." data-sr="Dizajnirano u Beogradu.<br>Napravljeno da traje.">Designed in Belgrade.<br>Made to last.</h2>
+            <p class="reveal" data-en="LOOQ started in 2019 in a small Dorćol workshop with one idea: eyewear shouldn't cost a fortune or cost the planet." data-sr="LOOQ je počeo 2019. u maloj radionici na Dorćolu sa jednom idejom: naočare ne bi trebalo da koštaju bogatstvo niti da štete planeti.">LOOQ started in 2019 in a small Dorćol workshop with one idea: eyewear shouldn't cost a fortune or cost the planet.</p>
+            <p class="reveal" data-en="Every frame is crafted from plant-based acetate and recycled titanium. We cut out the middlemen so you get premium quality at honest prices." data-sr="Svaki okvir je napravljen od acetatа na biljnoj bazi i recikliranog titanijuma. Izbacili smo posrednike da biste dobili premium kvalitet po poštenim cenama.">Every frame is crafted from plant-based acetate and recycled titanium. We cut out the middlemen so you get premium quality at honest prices.</p>
+        </div>
+    </section>
+
+    <section class="visit" id="visit">
+        <h2 class="reveal" data-en="Come Say Hello" data-sr="Dođite da se Upoznamo">Come Say Hello</h2>
+        <p class="reveal" data-en="Try on frames in person at one of our stores." data-sr="Probajte okvire uživo u jednoj od naših prodavnica.">Try on frames in person at one of our stores.</p>
+        <div class="visit-cards">
+            <div class="visit-card reveal">
+                <div class="icon">&#127963;&#65039;</div>
+                <h4 data-en="Beograd Dorćol" data-sr="Beograd Dorćol">Beograd Dorćol</h4>
+                <p data-en="Strahinjića Bana 42<br>Mon - Sat, 10:00 - 19:00" data-sr="Strahinjića Bana 42<br>Pon - Sub, 10:00 - 19:00">Strahinjića Bana 42<br>Mon - Sat, 10:00 - 19:00</p>
+            </div>
+            <div class="visit-card reveal">
+                <div class="icon">&#127963;&#65039;</div>
+                <h4 data-en="Novi Sad Centar" data-sr="Novi Sad Centar">Novi Sad Centar</h4>
+                <p data-en="Zmaj Jovina 78<br>Mon - Sat, 10:00 - 18:00" data-sr="Zmaj Jovina 78<br>Pon - Sub, 10:00 - 18:00">Zmaj Jovina 78<br>Mon - Sat, 10:00 - 18:00</p>
+            </div>
+            <div class="visit-card reveal">
+                <div class="icon">&#127963;&#65039;</div>
+                <h4 data-en="Niš Centar" data-sr="Niš Centar">Niš Centar</h4>
+                <p data-en="Obrenovićeva 15<br>Tue - Sat, 11:00 - 18:00" data-sr="Obrenovićeva 15<br>Uto - Sub, 11:00 - 18:00">Obrenovićeva 15<br>Tue - Sat, 11:00 - 18:00</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">LOOQ</div>
+            <div class="footer-links">
+                <a href="#" data-en="Shop" data-sr="Prodavnica">Shop</a>
+                <a href="#" data-en="About" data-sr="O Nama">About</a>
+                <a href="#" data-en="Stores" data-sr="Prodavnice">Stores</a>
+                <a href="#" data-en="Contact" data-sr="Kontakt">Contact</a>
+                <a href="#" data-en="Instagram" data-sr="Instagram">Instagram</a>
+            </div>
+            <div class="footer-copy">&copy; 2026 LOOQ Eyewear</div>
+        </div>
+    </footer>
+
+    <script src="../js/eyewear.js"></script>
+</body>
+</html>

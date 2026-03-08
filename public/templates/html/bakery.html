@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meel Bakery | Artisan Bread & Pastries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --warm: #c8553d;
+            --cream: #fdf6ee;
+            --dark-brown: #2c1810;
+            --soft-brown: #8b6f47;
+            --beige: #f0e4d4;
+            --white: #fff;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--dark-brown); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(253,246,238,0.95); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--beige);
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 32px;
+            display: flex; align-items: center; justify-content: space-between; height: 70px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700;
+            color: var(--dark-brown);
+        }
+        .logo small { font-size: 0.5em; font-weight: 400; letter-spacing: 3px; display: block; text-transform: uppercase; color: var(--soft-brown); font-family: 'Lato', sans-serif; }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--soft-brown); font-size: 0.85rem;
+            font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--warm); }
+        .nav-order {
+            background: var(--warm); color: #fff; border: none; padding: 10px 24px;
+            border-radius: 6px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: background 0.2s;
+        }
+        .nav-order:hover { background: #b84a35; }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 100px 32px 60px;
+        }
+        .hero-inner {
+            max-width: 1100px; width: 100%; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .hero h1 { font-size: 3.8rem; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero h1 .accent { color: var(--warm); }
+        .hero p { color: var(--soft-brown); font-size: 1.1rem; line-height: 1.8; font-weight: 300; margin-bottom: 32px; }
+        .hero-btns { display: flex; gap: 14px; }
+        .btn-warm {
+            background: var(--warm); color: #fff; border: none; padding: 14px 30px;
+            border-radius: 6px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: background 0.2s, transform 0.2s;
+        }
+        .btn-warm:hover { background: #b84a35; transform: translateY(-1px); }
+        .btn-outline {
+            background: none; color: var(--dark-brown); border: 2px solid var(--beige);
+            padding: 14px 30px; border-radius: 6px; font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: border-color 0.2s;
+        }
+        .btn-outline:hover { border-color: var(--warm); }
+
+        .hero-visual {
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .hero-card {
+            background: var(--white); border-radius: 24px; padding: 48px;
+            box-shadow: 0 20px 60px rgba(44,24,16,0.08); text-align: center;
+            width: 100%; max-width: 420px;
+        }
+        .hero-card .emoji { font-size: 5rem; margin-bottom: 16px; }
+        .hero-card .open-badge {
+            display: inline-block; background: #dcfce7; color: #166534;
+            padding: 6px 16px; border-radius: 20px; font-size: 0.8rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .hero-card .hours { margin-top: 14px; color: var(--soft-brown); font-size: 0.9rem; line-height: 1.8; }
+        .floating-badge {
+            position: absolute; background: var(--white); border-radius: 14px;
+            padding: 14px 18px; box-shadow: 0 8px 30px rgba(44,24,16,0.1);
+            display: flex; align-items: center; gap: 10px; font-size: 0.85rem; font-weight: 500;
+            animation: floatBadge 3s ease-in-out infinite;
+        }
+        .floating-badge:nth-child(2) { top: 20px; right: -20px; animation-delay: 0.5s; }
+        .floating-badge:nth-child(3) { bottom: 30px; left: -20px; animation-delay: 1s; }
+        .floating-badge .icon { font-size: 1.4rem; }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* SPECIALTIES */
+        .specialties { padding: 100px 32px; }
+        .specialties-inner { max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .overline {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 3px; color: var(--warm); margin-bottom: 12px; font-family: 'Lato', sans-serif;
+        }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 14px; }
+        .section-header p { color: var(--soft-brown); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+        .menu-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 48px; }
+        .menu-tab {
+            padding: 10px 24px; border: 2px solid var(--beige); border-radius: 50px;
+            background: none; cursor: pointer; font-family: inherit; font-size: 0.85rem;
+            font-weight: 600; color: var(--soft-brown); transition: all 0.3s;
+        }
+        .menu-tab.active { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
+        .menu-tab:hover:not(.active) { border-color: var(--warm); color: var(--warm); }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .menu-item {
+            background: var(--white); border-radius: 16px; padding: 28px;
+            display: flex; gap: 20px; align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s; cursor: default;
+            border: 1px solid transparent;
+        }
+        .menu-item:hover {
+            transform: translateY(-3px); box-shadow: 0 8px 30px rgba(44,24,16,0.08);
+            border-color: var(--beige);
+        }
+        .menu-item .item-emoji { font-size: 2.8rem; flex-shrink: 0; }
+        .menu-item h3 { font-size: 1.1rem; margin-bottom: 4px; }
+        .menu-item .desc { color: var(--soft-brown); font-size: 0.85rem; line-height: 1.5; margin-bottom: 6px; }
+        .menu-item .price { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--warm); font-size: 1.1rem; }
+
+        .menu-category { display: none; }
+        .menu-category.active { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        /* STORY */
+        .story { padding: 100px 32px; background: var(--dark-brown); color: #fff; position: relative; overflow: hidden; }
+        .story-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .story-deco {
+            position: absolute; font-size: 20rem; opacity: 0.03; top: -60px; right: -40px;
+        }
+        .story .overline {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 3px; color: var(--warm); margin-bottom: 12px; font-family: 'Lato', sans-serif;
+        }
+        .story h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
+        .story p { color: #bfae9a; font-size: 0.95rem; line-height: 1.8; margin-bottom: 14px; }
+        .story-timeline { display: flex; flex-direction: column; gap: 20px; }
+        .timeline-item {
+            background: rgba(255,255,255,0.06); border-radius: 14px; padding: 24px;
+            border-left: 3px solid var(--warm); transition: background 0.3s;
+        }
+        .timeline-item:hover { background: rgba(255,255,255,0.1); }
+        .timeline-year { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; color: var(--warm); margin-bottom: 4px; }
+        .timeline-text { color: #bfae9a; font-size: 0.85rem; line-height: 1.5; }
+
+        /* DAILY SCHEDULE */
+        .schedule { padding: 100px 32px; }
+        .schedule-inner { max-width: 1100px; margin: 0 auto; }
+        .schedule-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .schedule-card {
+            background: var(--white); border-radius: 16px; padding: 32px 24px;
+            text-align: center; transition: transform 0.3s; position: relative; overflow: hidden;
+        }
+        .schedule-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--warm); transform: scaleX(0); transition: transform 0.3s;
+        }
+        .schedule-card:hover::before { transform: scaleX(1); }
+        .schedule-card:hover { transform: translateY(-4px); }
+        .schedule-card .time { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--warm); margin-bottom: 4px; }
+        .schedule-card h3 { font-size: 1rem; margin-bottom: 8px; }
+        .schedule-card p { color: var(--soft-brown); font-size: 0.8rem; line-height: 1.5; }
+        .schedule-card .sched-emoji { font-size: 2.4rem; margin-bottom: 14px; }
+
+        /* REVIEWS */
+        .reviews { padding: 100px 32px; background: var(--beige); }
+        .reviews-inner { max-width: 1100px; margin: 0 auto; }
+        .review-carousel { position: relative; overflow: hidden; }
+        .review-track { display: flex; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+        .review-slide {
+            min-width: 100%; padding: 0 60px; text-align: center;
+        }
+        .review-slide .stars { color: #f59e0b; font-size: 1.2rem; margin-bottom: 20px; }
+        .review-slide blockquote {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem;
+            line-height: 1.5; font-style: italic; color: var(--dark-brown); margin-bottom: 24px;
+        }
+        .review-author { font-size: 0.9rem; font-weight: 700; }
+        .review-loc { font-size: 0.8rem; color: var(--soft-brown); }
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 32px; }
+        .carousel-dot {
+            width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--soft-brown);
+            background: none; cursor: pointer; transition: all 0.3s; padding: 0;
+        }
+        .carousel-dot.active { background: var(--warm); border-color: var(--warm); }
+        .carousel-arrows { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+        .carousel-arrow {
+            width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--beige);
+            background: var(--white); cursor: pointer; font-size: 1rem; display: flex;
+            align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .carousel-arrow:hover { border-color: var(--warm); color: var(--warm); }
+
+        /* ORDER CTA */
+        .order-cta { padding: 100px 32px; }
+        .order-box {
+            max-width: 1100px; margin: 0 auto; background: var(--white);
+            border-radius: 24px; padding: 64px; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+            box-shadow: 0 20px 60px rgba(44,24,16,0.06);
+        }
+        .order-box h2 { font-size: 2.2rem; margin-bottom: 14px; line-height: 1.2; }
+        .order-box p { color: var(--soft-brown); line-height: 1.7; margin-bottom: 24px; }
+        .order-form { display: flex; flex-direction: column; gap: 12px; }
+        .order-form input, .order-form select, .order-form textarea {
+            padding: 14px 18px; border: 2px solid var(--beige); border-radius: 10px;
+            font-family: inherit; font-size: 0.9rem; transition: border-color 0.2s;
+            background: var(--cream);
+        }
+        .order-form input:focus, .order-form select:focus, .order-form textarea:focus {
+            outline: none; border-color: var(--warm);
+        }
+        .order-form textarea { resize: vertical; }
+        .order-success {
+            display: none; text-align: center; padding: 24px;
+        }
+        .order-success .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 32px; background: var(--dark-brown); color: #bfae9a;
+        }
+        .footer-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        }
+        .footer-brand .logo { color: #fff; margin-bottom: 12px; }
+        .footer-brand p { font-size: 0.85rem; line-height: 1.6; }
+        .footer-col h4 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 14px; }
+        .footer-col a { display: block; color: #bfae9a; text-decoration: none; font-size: 0.85rem; margin-bottom: 8px; }
+        .footer-col a:hover { color: var(--warm); }
+        .footer-bottom {
+            max-width: 1100px; margin: 30px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; text-align: center;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero-visual { display: none; }
+            .menu-category.active { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+            .story-inner { grid-template-columns: 1fr; }
+            .order-box { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 70px; left: 0; right: 0; background: var(--cream);
+                padding: 24px 32px; border-bottom: 1px solid var(--beige); gap: 14px;
+            }
+            .review-slide { padding: 0 20px; }
+            .review-slide blockquote { font-size: 1.2rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ANIMATIONS */
+        .anim { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+        .anim.show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Meel<small>Artisan Bakery</small></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#menu" data-en="Menu" data-sr="Meni">Menu</a></li>
+                <li><a href="#story" data-en="Our Story" data-sr="Naša Priča">Our Story</a></li>
+                <li><a href="#daily" data-en="Daily Fresh" data-sr="Sveže Svaki Dan">Daily Fresh</a></li>
+                <li><a href="#reviews" data-en="Reviews" data-sr="Recenzije">Reviews</a></li>
+            </ul>
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()" style="background:none;border:2px solid var(--beige);padding:8px 14px;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;color:var(--soft-brown);transition:all 0.2s;text-transform:uppercase;letter-spacing:1px;margin-right:8px;">SR 🇷🇸</button>
+            <button class="nav-order" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" data-en="Order Now" data-sr="Poručite">Order Now</button>
+            <button class="mobile-toggle" id="mobileToggle">&#9776;</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <h1>Baked with <span class="accent">love</span>,<br>every single morning.</h1>
+                <p data-en="Artisan sourdough, flaky croissants, and handmade pastries from our family oven to your table. Open since 1998 in the heart of Novi Sad." data-sr="Zanatski kiselo testo, lisnati kroasani i ručno pravljeni kolači iz naše porodične peći na vaš sto. Otvoreni od 1998. u srcu Novog Sada.">Artisan sourdough, flaky croissants, and handmade pastries from our family oven to your table. Open since 1998 in the heart of Novi Sad.</p>
+                <div class="hero-btns">
+                    <button class="btn-warm" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" data-en="Order for Pickup" data-sr="Poručite za Preuzimanje">Order for Pickup</button>
+                    <button class="btn-outline" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})" data-en="See Our Menu" data-sr="Pogledajte Meni">See Our Menu</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="emoji">&#127838;</div>
+                    <div class="open-badge" id="openStatus">Checking hours...</div>
+                    <div class="hours">
+                        Mon - Fri: 06:30 - 18:00<br>
+                        Saturday: 07:00 - 16:00<br>
+                        Sunday: 08:00 - 14:00
+                    </div>
+                </div>
+                <div class="floating-badge">
+                    <span class="icon">&#11088;</span>
+                    <span>4.9 on Google (380+ reviews)</span>
+                </div>
+                <div class="floating-badge">
+                    <span class="icon">&#127793;</span>
+                    <span>100% Organic Flour</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specialties" id="menu">
+        <div class="specialties-inner">
+            <div class="section-header anim">
+                <div class="overline" data-en="Our Menu" data-sr="Naš Meni">Our Menu</div>
+                <h2 data-en="Freshly Made Daily" data-sr="Sveže Pravljeno Svakog Dana">Freshly Made Daily</h2>
+                <p data-en="Everything is baked in-house using organic ingredients from local farms." data-sr="Sve se peče u kući koristeći organske sastojke sa lokalnih farmi.">Everything is baked in-house using organic ingredients from local farms.</p>
+            </div>
+            <div class="menu-tabs anim">
+                <button class="menu-tab active" data-tab="bread" data-en="Breads" data-sr="Hleb">Breads</button>
+                <button class="menu-tab" data-tab="pastry" data-en="Pastries" data-sr="Peciva">Pastries</button>
+                <button class="menu-tab" data-tab="drinks" data-en="Drinks" data-sr="Napici">Drinks</button>
+            </div>
+
+            <div class="menu-category active" id="tab-bread">
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127838;</div>
+                    <div>
+                        <h3 data-en="Classic Sourdough" data-sr="Klasično Kiselo Testo">Classic Sourdough</h3>
+                        <div class="desc" data-en="72-hour fermented, crusty exterior, soft tangy crumb" data-sr="72 sata fermentacije, hrskava kora, mekana kisela sredina">72-hour fermented, crusty exterior, soft tangy crumb</div>
+                        <div class="price">&euro;4.50</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#129384;</div>
+                    <div>
+                        <h3 data-en="Seeded Rye" data-sr="Ražani sa Semenkama">Seeded Rye</h3>
+                        <div class="desc" data-en="Dense, hearty rye with sunflower and pumpkin seeds" data-sr="Gust, izdašan ražani sa semenkom suncokreta i bundeve">Dense, hearty rye with sunflower and pumpkin seeds</div>
+                        <div class="price">&euro;5.20</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127838;</div>
+                    <div>
+                        <h3 data-en="Olive Focaccia" data-sr="Fokača sa Maslinama">Olive Focaccia</h3>
+                        <div class="desc" data-en="Rosemary, Kalamata olives, sea salt, drizzled with EVOO" data-sr="Ruzmarin, Kalamata masline, morska so, preliveno maslinovim uljem">Rosemary, Kalamata olives, sea salt, drizzled with EVOO</div>
+                        <div class="price">&euro;5.80</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#129384;</div>
+                    <div>
+                        <h3 data-en="Walnut Wheat" data-sr="Pšenični sa Orasima">Walnut Wheat</h3>
+                        <div class="desc" data-en="Whole wheat with toasted walnuts and a touch of honey" data-sr="Integralna pšenica sa tostiranim orasima i malo meda">Whole wheat with toasted walnuts and a touch of honey</div>
+                        <div class="price">&euro;5.50</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category" id="tab-pastry">
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#129360;</div>
+                    <div>
+                        <h3 data-en="Butter Croissant" data-sr="Maslačni Kroasan">Butter Croissant</h3>
+                        <div class="desc" data-en="36 layers of hand-laminated French butter dough" data-sr="36 slojeva ručno laminiranog testa sa puterom">36 layers of hand-laminated French butter dough</div>
+                        <div class="price">&euro;2.80</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127856;</div>
+                    <div>
+                        <h3 data-en="Pain au Chocolat" data-sr="Pain au Chocolat">Pain au Chocolat</h3>
+                        <div class="desc" data-en="Dark Belgian chocolate wrapped in flaky pastry" data-sr="Tamna belgijska čokolada umotana u lisnato testo">Dark Belgian chocolate wrapped in flaky pastry</div>
+                        <div class="price">&euro;3.20</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127856;</div>
+                    <div>
+                        <h3 data-en="Cinnamon Roll" data-sr="Rolat sa Cimetom">Cinnamon Roll</h3>
+                        <div class="desc" data-en="Soft brioche swirl with Ceylon cinnamon and cream cheese glaze" data-sr="Mekani brioš sa cejlonskim cimetom i glazurom od krem sira">Soft brioche swirl with Ceylon cinnamon and cream cheese glaze</div>
+                        <div class="price">&euro;3.50</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127856;</div>
+                    <div>
+                        <h3 data-en="Almond Tart" data-sr="Tarta sa Bademima">Almond Tart</h3>
+                        <div class="desc" data-en="Frangipane in buttery shortcrust, topped with flaked almonds" data-sr="Franžipan u butrastom testu, posut listicima badema">Frangipane in buttery shortcrust, topped with flaked almonds</div>
+                        <div class="price">&euro;4.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category" id="tab-drinks">
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#9749;</div>
+                    <div>
+                        <h3 data-en="Flat White" data-sr="Flat White">Flat White</h3>
+                        <div class="desc" data-en="Double shot espresso with velvety steamed milk" data-sr="Dupli espreso sa baršunastim zagrejanim mlekom">Double shot espresso with velvety steamed milk</div>
+                        <div class="price">&euro;3.50</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#129380;</div>
+                    <div>
+                        <h3 data-en="Matcha Latte" data-sr="Matcha Latte">Matcha Latte</h3>
+                        <div class="desc" data-en="Ceremonial-grade matcha with oat milk" data-sr="Ceremonijalni matcha sa zobanim mlekom">Ceremonial-grade matcha with oat milk</div>
+                        <div class="price">&euro;4.20</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127861;</div>
+                    <div>
+                        <h3 data-en="Hot Chocolate" data-sr="Topla Čokolada">Hot Chocolate</h3>
+                        <div class="desc" data-en="Rich Belgian cocoa topped with house-made whipped cream" data-sr="Bogat belgijski kakao sa domaćim šlagom">Rich Belgian cocoa topped with house-made whipped cream</div>
+                        <div class="price">&euro;3.80</div>
+                    </div>
+                </div>
+                <div class="menu-item anim">
+                    <div class="item-emoji">&#127835;</div>
+                    <div>
+                        <h3 data-en="Fresh Orange Juice" data-sr="Ceđeni Sok od Pomorandže">Fresh Orange Juice</h3>
+                        <div class="desc" data-en="Pressed to order, no added sugar" data-sr="Ceđen po porudžbini, bez dodatog šećera">Pressed to order, no added sugar</div>
+                        <div class="price">&euro;3.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="story" id="story">
+        <div class="story-deco">&#127838;</div>
+        <div class="story-inner">
+            <div>
+                <div class="overline anim" data-en="Our Story" data-sr="Naša Priča">Our Story</div>
+                <h2 class="anim" data-en="Three generations of flour-dusted hands." data-sr="Tri generacije ruku posutih brašnom.">Three generations of flour-dusted hands.</h2>
+                <p class="anim" data-en="What started as Oma's weekend hobby in 1998 has grown into Novi Sad's most beloved bakery. We still use her original sourdough starter — now 26 years old." data-sr="Ono što je počelo kao bakin hobi vikendom 1998. godine izraslo je u najvoljeniju pekaru Novog Sada. Još uvek koristimo njen originalni starter za kiselo testo — star 26 godina.">What started as Oma's weekend hobby in 1998 has grown into Novi Sad's most beloved bakery. We still use her original sourdough starter &mdash; now 26 years old.</p>
+                <p class="anim" data-en="Every loaf is shaped by hand. Every pastry is made from scratch. No shortcuts, no preservatives, no compromises." data-sr="Svaki hleb je ručno oblikovan. Svako pecivo je napravljeno od nule. Bez prečica, bez konzervanasa, bez kompromisa.">Every loaf is shaped by hand. Every pastry is made from scratch. No shortcuts, no preservatives, no compromises.</p>
+            </div>
+            <div class="story-timeline">
+                <div class="timeline-item anim">
+                    <div class="timeline-year">1998</div>
+                    <div class="timeline-text" data-en="Oma opens a tiny bread stall at the Saturday market" data-sr="Baka otvara mali štand za hleb na subotnjoj pijaci">Oma opens a tiny bread stall at the Saturday market</div>
+                </div>
+                <div class="timeline-item anim">
+                    <div class="timeline-year">2005</div>
+                    <div class="timeline-text" data-en="First brick-and-mortar shop on Zmaj Jovina" data-sr="Prva prodavnica na Zmaj Jovinoj ulici">First brick-and-mortar shop on Zmaj Jovina</div>
+                </div>
+                <div class="timeline-item anim">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-text" data-en="Won &quot;Best Artisan Bakery&quot; at Serbian Food Awards" data-sr="Osvojili nagradu 'Najbolja Zanatska Pekara' na Srpskim Nagradama za Hranu">Won "Best Artisan Bakery" at Serbian Food Awards</div>
+                </div>
+                <div class="timeline-item anim">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-text" data-en="Expanded with a second location and coffee bar" data-sr="Proširenje sa drugom lokacijom i kafićem">Expanded with a second location and coffee bar</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="schedule" id="daily">
+        <div class="schedule-inner">
+            <div class="section-header anim">
+                <div class="overline" data-en="Fresh All Day" data-sr="Sveže Ceo Dan">Fresh All Day</div>
+                <h2 data-en="Our Daily Rhythm" data-sr="Naš Dnevni Ritam">Our Daily Rhythm</h2>
+                <p data-en="Here's when your favorites come out of the oven." data-sr="Evo kada vaši omiljeni proizvodi izlaze iz peći.">Here's when your favorites come out of the oven.</p>
+            </div>
+            <div class="schedule-grid">
+                <div class="schedule-card anim">
+                    <div class="sched-emoji">&#127749;</div>
+                    <div class="time">06:30</div>
+                    <h3 data-en="First Loaves" data-sr="Prvi Hlebovi">First Loaves</h3>
+                    <p data-en="Sourdough and rye fresh from the oven. The early bird gets the crust." data-sr="Kiselo testo i ražani sveži iz peći. Ko rano rani, dobija koricu.">Sourdough and rye fresh from the oven. The early bird gets the crust.</p>
+                </div>
+                <div class="schedule-card anim">
+                    <div class="sched-emoji">&#129360;</div>
+                    <div class="time">07:30</div>
+                    <h3 data-en="Pastry Hour" data-sr="Sat Peciva">Pastry Hour</h3>
+                    <p data-en="Croissants, pain au chocolat, and Danish pastries land on the shelves." data-sr="Kroasani, pain au chocolat i danske peciva stižu na police.">Croissants, pain au chocolat, and Danish pastries land on the shelves.</p>
+                </div>
+                <div class="schedule-card anim">
+                    <div class="sched-emoji">&#9749;</div>
+                    <div class="time">10:00</div>
+                    <h3 data-en="Coffee & Cake" data-sr="Kafa i Kolač">Coffee & Cake</h3>
+                    <p data-en="Mid-morning treats. Tarts, cinnamon rolls, and our famous carrot cake." data-sr="Desetka za poslastice. Tarte, rolati sa cimetom i naša čuvena torta od šargarepe.">Mid-morning treats. Tarts, cinnamon rolls, and our famous carrot cake.</p>
+                </div>
+                <div class="schedule-card anim">
+                    <div class="sched-emoji">&#127838;</div>
+                    <div class="time">14:00</div>
+                    <h3 data-en="Afternoon Batch" data-sr="Popodnevna Serija">Afternoon Batch</h3>
+                    <p data-en="Second round of bread for the afternoon crowd. Get it while it's warm." data-sr="Druga runda hleba za popodnevne kupce. Uzmite dok je topao.">Second round of bread for the afternoon crowd. Get it while it's warm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <div class="reviews-inner">
+            <div class="section-header anim">
+                <div class="overline" data-en="Kind Words" data-sr="Lepe Reči">Kind Words</div>
+                <h2 data-en="What People Say" data-sr="Šta Ljudi Kažu">What People Say</h2>
+            </div>
+            <div class="review-carousel">
+                <div class="review-track" id="reviewTrack">
+                    <div class="review-slide">
+                        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote data-en="&quot;The sourdough at Meel is the best I've ever had. I drive 40 minutes every Saturday just for a loaf. Worth every kilometer.&quot;" data-sr="&quot;Kiselo testo u Meel-u je najbolje koje sam ikad probala. Vozim se 40 minuta svake subote samo po hleb. Vredi svakog kilometra.&quot;">"The sourdough at Meel is the best I've ever had. I drive 40 minutes every Saturday just for a loaf. Worth every kilometer."</blockquote>
+                        <div class="review-author" data-en="Anđela Đorđević" data-sr="Anđela Đorđević">Anđela Đorđević</div>
+                        <div class="review-loc" data-en="Sremski Karlovci" data-sr="Sremski Karlovci">Sremski Karlovci</div>
+                    </div>
+                    <div class="review-slide">
+                        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote data-en="&quot;Their croissants are flaky, buttery perfection. My French mother-in-law gave them her stamp of approval — and she doesn't give those easily.&quot;" data-sr="&quot;Njihovi kroasani su lisnato, maslačno savršenstvo. Moja francuska svekrva im je dala svoju potvrdu — a ona ih ne daje lako.&quot;">"Their croissants are flaky, buttery perfection. My French mother-in-law gave them her stamp of approval &mdash; and she doesn't give those easily."</blockquote>
+                        <div class="review-author" data-en="Tomas Vilić" data-sr="Tomas Vilić">Tomas Vilić</div>
+                        <div class="review-loc" data-en="Novi Sad" data-sr="Novi Sad">Novi Sad</div>
+                    </div>
+                    <div class="review-slide">
+                        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote data-en="&quot;More than a bakery. It's a place that feels like home. The smell when you walk in, the warmth, the people — it's magic.&quot;" data-sr="&quot;Više od pekare. To je mesto koje se oseća kao dom. Miris kada uđete, toplina, ljudi — to je magija.&quot;">"More than a bakery. It's a place that feels like home. The smell when you walk in, the warmth, the people &mdash; it's magic."</blockquote>
+                        <div class="review-author" data-en="Jelena Petrović" data-sr="Jelena Petrović">Jelena Petrović</div>
+                        <div class="review-loc" data-en="Novi Sad" data-sr="Novi Sad">Novi Sad</div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots"></div>
+                <div class="carousel-arrows">
+                    <button class="carousel-arrow" id="prevBtn">&#8592;</button>
+                    <button class="carousel-arrow" id="nextBtn">&#8594;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="order-cta" id="order">
+        <div class="order-box">
+            <div>
+                <h2 data-en="Order for Pickup" data-sr="Poručite za Preuzimanje">Order for Pickup</h2>
+                <p data-en="Skip the queue. Place your order before 16:00 and pick it up fresh the next morning. We'll have it bagged and ready for you." data-sr="Preskočite red. Poručite pre 16:00 i preuzmite sveže sledećeg jutra. Imaćemo spremljeno za vas.">Skip the queue. Place your order before 16:00 and pick it up fresh the next morning. We'll have it bagged and ready for you.</p>
+                <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--soft-brown);">
+                        <span style="font-size:1.2rem;">&#128337;</span> <span data-en="Ready by 07:00" data-sr="Spremno do 07:00">Ready by 07:00</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--soft-brown);">
+                        <span style="font-size:1.2rem;">&#128176;</span> <span data-en="Pay on pickup" data-sr="Plaćanje pri preuzimanju">Pay on pickup</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--soft-brown);">
+                        <span style="font-size:1.2rem;">&#127793;</span> <span data-en="Always fresh" data-sr="Uvek sveže">Always fresh</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form class="order-form" id="orderForm" onsubmit="return false;">
+                    <input type="text" placeholder="Your name" required>
+                    <input type="tel" placeholder="Phone number" required>
+                    <select>
+                        <option value="" disabled selected>What would you like?</option>
+                        <option>Classic Sourdough</option>
+                        <option>Seeded Rye</option>
+                        <option>Olive Focaccia</option>
+                        <option>Butter Croissants (4x)</option>
+                        <option>Pain au Chocolat (4x)</option>
+                        <option>Mixed Pastry Box</option>
+                        <option>Custom Order</option>
+                    </select>
+                    <textarea rows="3" placeholder="Any special requests?"></textarea>
+                    <button type="submit" class="btn-warm" style="width:100%;" data-en="Place Order" data-sr="Poručite">Place Order</button>
+                </form>
+                <div class="order-success" id="orderSuccess">
+                    <div class="emoji">&#127838;</div>
+                    <h3 data-en="Order Received!" data-sr="Porudžbina Primljena!">Order Received!</h3>
+                    <p style="color:var(--soft-brown); margin-top:8px;" data-en="We'll confirm by SMS within the hour." data-sr="Potvrđujemo SMS-om u roku od sat vremena.">We'll confirm by SMS within the hour.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo">Meel<small>Artisan Bakery</small></div>
+                <p data-en="Baking happiness since 1998." data-sr="Pečemo sreću od 1998.">Baking happiness since 1998.<br>Zmaj Jovina 23, 21000 Novi Sad</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-en="Visit" data-sr="Posetite">Visit</h4>
+                <a href="#" data-en="Novi Sad - Centar" data-sr="Novi Sad - Centar">Novi Sad - Centar</a>
+                <a href="#" data-en="Novi Sad - Liman" data-sr="Novi Sad - Liman">Novi Sad - Liman</a>
+                <a href="#" data-en="Directions" data-sr="Kako do nas">Directions</a>
+            </div>
+            <div class="footer-col">
+                <h4 data-en="Connect" data-sr="Kontakt">Connect</h4>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">info@meelbakery.rs</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Meel Bakery. All rights reserved.</div>
+    </footer>
+
+    <script src="../js/bakery.js"></script>
+</body>
+</html>
