@@ -167,14 +167,14 @@ export const en = {
     title: 'Get In Touch',
     subtitle: 'Ready to start your project? Reach out to us.',
     phone: '+381 65 820 0252',
-    email: 'andrej.nedeljkovic@inlock.ai',
+    email: '99web.contact@gmail.com',
     phoneLabel: 'Phone',
     emailLabel: 'Email',
   },
   footer: {
     tagline: 'Fast websites. Fair price. Full ownership.',
     copyright: '© 2025 Web99. All rights reserved.',
-    email: 'hello@web99.io',
+    email: '99web.contact@gmail.com',
     links: ['Privacy Policy', 'Terms of Service', 'Contact'],
   },
 }

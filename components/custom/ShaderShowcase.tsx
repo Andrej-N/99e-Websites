@@ -228,13 +228,15 @@ export function ShaderShowcase() {
           variants={item}
           className="flex flex-col sm:flex-row items-center gap-4 mb-14"
         >
-          <Button size="xl" variant="glow" className="group w-full sm:w-auto">
-            {t.hero.cta_primary}
-            <ArrowRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </Button>
+          <Link href="#contact" className="w-full sm:w-auto">
+            <Button size="xl" variant="glow" className="group w-full sm:w-auto">
+              {t.hero.cta_primary}
+              <ArrowRight
+                size={18}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Button>
+          </Link>
           <Link href="/showcase">
             <Button size="xl" variant="outline" className="w-full sm:w-auto">
               {t.hero.cta_secondary}

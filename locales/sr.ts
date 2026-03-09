@@ -169,14 +169,14 @@ export const sr: Translations = {
     title: 'Kontaktirajte nas',
     subtitle: 'Spremni da pokrenete projekat? Javite nam se.',
     phone: '+381 65 820 0252',
-    email: 'andrej.nedeljkovic@inlock.ai',
+    email: '99web.contact@gmail.com',
     phoneLabel: 'Telefon',
     emailLabel: 'Email',
   },
   footer: {
     tagline: 'Brzi sajtovi. Poštena cena. Puno vlasništvo.',
     copyright: '© 2025 Web99. Sva prava zadržana.',
-    email: 'hello@web99.io',
+    email: '99web.contact@gmail.com',
     links: ['Politika privatnosti', 'Uslovi korišćenja', 'Kontakt'],
   },
 }

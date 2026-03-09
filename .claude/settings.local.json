@@ -11,7 +11,8 @@
       "Bash(npx tailwindcss:*)",
       "Bash(curl:*)",
       "Bash(npm ls:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(npx:*)"
     ]
   }
 }
